@@ -7,7 +7,7 @@ import './styles.scss'
 
 const Directory = () => {
 	return (
-		<div className='directory'>
+		<section className='directory'>
 			<div className='wrap'>
 				<div className='item' style={{ backgroundImage: `url(${ShopWomen})` }}>
 					<a>ShopWomen</a>
@@ -16,7 +16,7 @@ const Directory = () => {
 					<a>ShopMen</a>
 				</div>
 			</div>
-		</div>
+		</section>
 	)
 }
 

@@ -2,11 +2,11 @@ import React from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer.js'
 
-const HomepagesLayout = ({ children }) => {
+const HomepagesLayout = (props) => {
 	return (
 		<>
-			<Header />
-			{children}
+			<Header {...props} />
+			{props.children}
 			<Footer />
 		</>
 	)
