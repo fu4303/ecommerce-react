@@ -3,11 +3,13 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 
 import { auth, handleUserProfile } from './firebase/utils'
 
-import Homepage from './pages/Homepages/index'
-import Registration from './pages/Registration'
 import MainLayout from './layouts/MainLayout'
 import HomepagesLayout from './layouts/HomepagesLayout'
+
+import Homepage from './pages/Homepages/index'
+import Registration from './pages/Registration'
 import Login from './pages/Login'
+import Recovery from './pages/Recovery'
 
 import './default.scss'
 
@@ -86,6 +88,14 @@ class App extends Component {
 								</MainLayout>
 							)
 						}
+					/>
+					<Route
+						path='/recovery'
+						render={() => (
+							<MainLayout>
+								<Recovery />
+							</MainLayout>
+						)}
 					/>
 				</Switch>
 			</div>

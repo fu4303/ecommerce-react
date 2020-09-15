@@ -4,6 +4,7 @@ import { auth, handleUserProfile } from '../../firebase/utils'
 
 import Button from '../Form/Button'
 import FormInput from '../Form/FormInput'
+import AuthWrapper from '../AuthWrapper'
 
 import './styles.scss'
 
@@ -62,60 +63,60 @@ export class Signup extends Component {
 	render() {
 		const { displayName, email, password, confirmPassword, errors } = this.state
 
+		const configAuthWrapper = {
+			headline: 'Registration',
+		}
+
 		return (
-			<div className='signup'>
-				<div className='wrap'>
-					<h2>Signup</h2>
+			<AuthWrapper {...configAuthWrapper}>
+				{errors.length > 0 && (
+					<ul>
+						{errors.map((err, index) => {
+							return (
+								<li className='error-message' key={index}>
+									{err}
+								</li>
+							)
+						})}
+					</ul>
+				)}
+				<form onSubmit={this.handleFormSubmit}>
+					<FormInput
+						type='text'
+						name='displayName'
+						value={displayName}
+						placeholder='Full name'
+						onChange={this.handleChange}
+					/>
 
-					{errors.length > 0 && (
-						<ul>
-							{errors.map((err, index) => {
-								return (
-									<li className='error-message' key={index}>
-										{err}
-									</li>
-								)
-							})}
-						</ul>
-					)}
-					<form onSubmit={this.handleFormSubmit}>
-						<FormInput
-							type='text'
-							name='displayName'
-							value={displayName}
-							placeholder='Full name'
-							onChange={this.handleChange}
-						/>
+					<FormInput
+						type='text'
+						name='email'
+						value={email}
+						placeholder='Email'
+						onChange={this.handleChange}
+					/>
 
-						<FormInput
-							type='text'
-							name='email'
-							value={email}
-							placeholder='Email'
-							onChange={this.handleChange}
-						/>
-
-						<FormInput
-							type='password'
-							name='password'
-							value={password}
-							placeholder='
+					<FormInput
+						type='password'
+						name='password'
+						value={password}
+						placeholder='
                             Password'
-							onChange={this.handleChange}
-						/>
+						onChange={this.handleChange}
+					/>
 
-						<FormInput
-							type='password'
-							name='confirmPassword'
-							value={confirmPassword}
-							placeholder='Confirm Password'
-							onChange={this.handleChange}
-						/>
+					<FormInput
+						type='password'
+						name='confirmPassword'
+						value={confirmPassword}
+						placeholder='Confirm Password'
+						onChange={this.handleChange}
+					/>
 
-						<Button type='submit'>Registration</Button>
-					</form>
-				</div>
-			</div>
+					<Button type='submit'>Registration</Button>
+				</form>
+			</AuthWrapper>
 		)
 	}
 }
