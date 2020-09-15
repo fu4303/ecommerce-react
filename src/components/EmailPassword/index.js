@@ -29,7 +29,7 @@ class EmailPassword extends Component {
 
 	handleSubmit = async (event) => {
 		event.preventDefault()
-		const { email, password } = this.state
+		const { email } = this.state
 
 		const config = {
 			url: 'http://localhost:3000/login',
