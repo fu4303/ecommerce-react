@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 
 import { auth, handleUserProfile } from '../../firebase/utils'
 
@@ -7,40 +7,29 @@ import FormInput from '../Form/FormInput'
 import AuthWrapper from '../AuthWrapper'
 
 import './styles.scss'
+import { withRouter } from 'react-router-dom'
 
-const initialState = {
-	displayName: '',
-	email: '',
-	password: '',
-	confirmPassword: '',
-	errors: [],
-}
+const Signup = (props) => {
+	const [displayName, setDisplayName] = useState('')
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
+	const [confirmPassword, setConfirmPassword] = useState('')
+	const [errors, setErrors] = useState('')
 
-export class Signup extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			...initialState,
-		}
+	const resetForm = () => {
+		setDisplayName('')
+		setEmail('')
+		setPassword('')
+		setConfirmPassword('')
+		setErrors('')
 	}
 
-	handleChange = (event) => {
-		const { name, value } = event.target
-
-		this.setState({
-			[name]: value,
-		})
-	}
-
-	handleFormSubmit = async (event) => {
+	const handleFormSubmit = async (event) => {
 		event.preventDefault()
-		const { displayName, email, password, confirmPassword } = this.state
 
 		if (password !== confirmPassword) {
 			const err = ["Password Don't match"]
-			this.setState({
-				errors: err,
-			})
+			setEmail(err)
 			return
 		}
 
@@ -51,74 +40,68 @@ export class Signup extends Component {
 			)
 
 			await handleUserProfile(user, { displayName })
-
-			this.setState({
-				...initialState,
-			})
+			resetForm()
+			props.history.push('/')
 		} catch (err) {
 			console.log(err)
 		}
 	}
 
-	render() {
-		const { displayName, email, password, confirmPassword, errors } = this.state
-
-		const configAuthWrapper = {
-			headline: 'Registration',
-		}
-
-		return (
-			<AuthWrapper {...configAuthWrapper}>
-				{errors.length > 0 && (
-					<ul>
-						{errors.map((err, index) => {
-							return (
-								<li className='error-message' key={index}>
-									{err}
-								</li>
-							)
-						})}
-					</ul>
-				)}
-				<form onSubmit={this.handleFormSubmit}>
-					<FormInput
-						type='text'
-						name='displayName'
-						value={displayName}
-						placeholder='Full name'
-						onChange={this.handleChange}
-					/>
-
-					<FormInput
-						type='text'
-						name='email'
-						value={email}
-						placeholder='Email'
-						onChange={this.handleChange}
-					/>
-
-					<FormInput
-						type='password'
-						name='password'
-						value={password}
-						placeholder='
-                            Password'
-						onChange={this.handleChange}
-					/>
-
-					<FormInput
-						type='password'
-						name='confirmPassword'
-						value={confirmPassword}
-						placeholder='Confirm Password'
-						onChange={this.handleChange}
-					/>
-
-					<Button type='submit'>Registration</Button>
-				</form>
-			</AuthWrapper>
-		)
+	const configAuthWrapper = {
+		headline: 'Registration',
 	}
+
+	return (
+		<AuthWrapper {...configAuthWrapper}>
+			{errors.length > 0 && (
+				<ul>
+					{errors.map((err, index) => {
+						return (
+							<li className='error-message' key={index}>
+								{err}
+							</li>
+						)
+					})}
+				</ul>
+			)}
+			<form onSubmit={handleFormSubmit}>
+				<FormInput
+					type='text'
+					name='displayName'
+					value={displayName}
+					placeholder='Full name'
+					handleChange={(event) => setDisplayName(event.target.value)}
+				/>
+
+				<FormInput
+					type='text'
+					name='email'
+					value={email}
+					placeholder='Email'
+					handleChange={(event) => setEmail(event.target.value)}
+				/>
+
+				<FormInput
+					type='password'
+					name='password'
+					value={password}
+					placeholder='
+                            Password'
+					handleChange={(event) => setPassword(event.target.value)}
+				/>
+
+				<FormInput
+					type='password'
+					name='confirmPassword'
+					value={confirmPassword}
+					placeholder='Confirm Password'
+					handleChange={(event) => setConfirmPassword(event.target.value)}
+				/>
+
+				<Button type='submit'>Registration</Button>
+			</form>
+		</AuthWrapper>
+	)
 }
 
-export default Signup
+export default withRouter(Signup)
