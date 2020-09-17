@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { Route, Switch } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import { auth, handleUserProfile } from './firebase/utils'
 
@@ -19,21 +19,24 @@ import './default.scss'
 import { setCurrentUser } from './redux/User/user.action'
 
 const App = (props) => {
-	const { setCurrentUser, currentUser } = props
+	const dispatch = useDispatch()
+
 	useEffect(() => {
 		const authListener = auth.onAuthStateChanged(async (userAuth) => {
 			if (userAuth) {
 				const userRef = await handleUserProfile(userAuth)
 				userRef.onSnapshot((snapshot) => {
-					setCurrentUser({
-						currentUser: {
-							id: snapshot.id,
-							...snapshot.data(),
-						},
-					})
+					dispatch(
+						setCurrentUser({
+							currentUser: {
+								id: snapshot.id,
+								...snapshot.data(),
+							},
+						})
+					)
 				})
 			}
-			setCurrentUser(userAuth)
+			dispatch(setCurrentUser(userAuth))
 		})
 
 		return () => {
@@ -63,15 +66,11 @@ const App = (props) => {
 				/>
 				<Route
 					path='/login'
-					render={() =>
-						currentUser ? (
-							<Redirect to='' />
-						) : (
-							<MainLayout>
-								<Login />
-							</MainLayout>
-						)
-					}
+					render={() => (
+						<MainLayout>
+							<Login />
+						</MainLayout>
+					)}
 				/>
 				<Route
 					path='/recovery'
@@ -97,12 +96,4 @@ const App = (props) => {
 	)
 }
 
-const mapStateToProps = ({ user }) => ({
-	currentUser: user.currentUser,
-})
-
-const mapDispatchToProps = (dispatch) => ({
-	setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default App

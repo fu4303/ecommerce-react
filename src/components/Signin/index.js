@@ -1,36 +1,50 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { Link, withRouter } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import Button from '../Form/Button'
-
-import { auth, signInWithGoogle } from '../../firebase/utils'
 
 import FormInput from '../Form/FormInput'
 import AuthWrapper from '../AuthWrapper'
 
 import './styles.scss'
-import { Link, withRouter } from 'react-router-dom'
+import {
+	signInUser,
+	signInWithGoogle,
+	resetAllAuthForms,
+} from '../../redux/User/user.action'
+
+const mapState = ({ user }) => ({
+	signInSuccess: user.signInSuccess,
+})
 
 const Signin = (props) => {
+	const { signInSuccess } = useSelector(mapState)
+	const dispatch = useDispatch()
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+
+	useEffect(() => {
+		if (signInSuccess) {
+			resetForm()
+			dispatch(resetAllAuthForms())
+			props.history.push('/')
+		}
+	}, [signInSuccess])
 
 	const resetForm = () => {
 		setEmail('')
 		setPassword('')
 	}
 
-	const handleSubmit = async (event) => {
+	const handleSubmit = (event) => {
 		event.preventDefault()
-
-		try {
-			await auth.signInWithEmailAndPassword(email, password)
-			resetForm()
-			props.history.push('/')
-		} catch (error) {
-			console.log(error)
-		}
+		dispatch(signInUser({ email, password }))
 	}
 
+	const handleGoogleSignIn = () => {
+		dispatch(signInWithGoogle())
+	}
 	const configAuthWrapper = {
 		headline: 'Login',
 	}
@@ -59,7 +73,7 @@ const Signin = (props) => {
 
 					<div className='socialSignin'>
 						<div className='row'>
-							<Button onClick={signInWithGoogle}>Sign in with Google</Button>
+							<Button onClick={handleGoogleSignIn}>Sign in with Google</Button>
 						</div>
 					</div>
 
