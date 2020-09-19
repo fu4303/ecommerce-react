@@ -6,10 +6,10 @@ import logger from 'redux-logger'
 import rootReduer from './rootReduer'
 import rootSaga from './rootSaga'
 
-// const sagaMiddleware = createSagaMiddleware()
-export const middlewares = [thunk, logger]
+const sagaMiddleware = createSagaMiddleware()
+export const middlewares = [thunk, sagaMiddleware, logger]
 
 export const store = createStore(rootReduer, applyMiddleware(...middlewares))
-// sagaMiddleware.run(rootSaga)
+sagaMiddleware.run(rootSaga)
 
 export default store

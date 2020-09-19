@@ -2,53 +2,34 @@ import userTypes from './user.types'
 
 const INITIALSTATE = {
 	currentUser: null,
-	signInSuccess: false,
-	signUpSuccess: false,
-	signUpError: [],
 	resetPasswordSuccess: false,
-	resetPasswordError: [],
+	userError: [],
 }
 
 const userReduer = (state = INITIALSTATE, action) => {
 	switch (action.type) {
-		case userTypes.SET_CURRENT_USER:
-			return {
-				...state,
-				currentUser: action.payload,
-			}
 		case userTypes.SIGN_IN_SUCCESS:
 			return {
 				...state,
-				signInSuccess: action.payload,
-			}
-		case userTypes.SIGN_UP_SUCCESS:
-			return {
-				...state,
-				signUpSuccess: action.payload,
-			}
-		case userTypes.SIGN_UP_ERROR:
-			return {
-				...state,
-				signUpError: action.payload,
+				currentUser: action.payload,
+				// If sign in success set the userError back to the state
+				userError: [],
 			}
 		case userTypes.RESET_PASSWORD_SUCCESS:
 			return {
 				...state,
 				resetPasswordSuccess: action.payload,
 			}
-		case userTypes.RESET_PASSWORD_ERROR:
+		case userTypes.USER_ERROR:
 			return {
 				...state,
-				resetPasswordError: action.payload,
+				userError: action.payload,
 			}
-		case userTypes.RESET_AUTH_FORM:
+		case userTypes.RESET_USER_STATE:
+		case userTypes.SIGN_OUT_USER_SUCCESS:
 			return {
 				...state,
-				signInSuccess: false,
-				signUpSuccess: false,
-				signUpError: [],
-				resetPasswordSuccess: false,
-				resetPasswordError: [],
+				...INITIALSTATE,
 			}
 		default:
 			return state
