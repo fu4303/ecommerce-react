@@ -1,0 +1,26 @@
+.form-row {
+	justify-content: left;
+	flex-flow: wrap;
+	width: 100%;
+
+	label {
+		display: flex;
+		width: 100%;
+		text-align: left;
+	}
+
+	select {
+		display: inline-flex;
+		width: auto;
+		float: left;
+		font-size: 1.5rem;
+		line-height: 1;
+		font-weight: 400;
+		text-align: left;
+		padding: 10px 0px;
+		margin: 10px auto;
+		border: none;
+		outline: none;
+		cursor: pointer;
+	}
+}

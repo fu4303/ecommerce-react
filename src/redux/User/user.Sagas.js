@@ -4,7 +4,7 @@ import {
 	handleUserProfile,
 	getCurrentUser,
 	GoogleProvider,
-} from './../../firebase/utils'
+} from '../../firebase/utils'
 import userTypes from './user.types'
 import {
 	signInSuccess,

@@ -27,7 +27,7 @@ const Header = (props) => {
 					</Link>
 				</div>
 
-				<div className='callToActions'>
+				<div className='call-to-actions'>
 					{currentUser && currentUser ? (
 						<ul>
 							<li>

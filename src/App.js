@@ -20,6 +20,7 @@ import Admin from './pages/Admin'
 import { checkUserSession } from './redux/User/user.action'
 
 import './default.scss'
+import AdminLayout from './layouts/AdminLayout'
 
 const App = (props) => {
 	const dispatch = useDispatch()
@@ -81,9 +82,9 @@ const App = (props) => {
 					path='/admin'
 					render={() => (
 						<WithAdminAuth>
-							<MainLayout>
+							<AdminLayout>
 								<Admin />
-							</MainLayout>
+							</AdminLayout>
 						</WithAdminAuth>
 					)}
 				/>
