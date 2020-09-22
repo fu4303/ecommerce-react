@@ -4,9 +4,9 @@
 
 	.wrap {
 		height: 100%;
-		max-width: 1450px;
+		// max-width: 1450px;
 		display: flex;
-		justify-content: space-around;
+		justify-content: space-evenly;
 		align-items: center;
 
 		.logo {
@@ -15,6 +15,36 @@
 			img {
 				width: 100%;
 				margin: 0;
+			}
+		}
+
+		nav {
+			ul,
+			li {
+				margin: 0;
+				padding: 0;
+			}
+
+			ul {
+				display: flex;
+				justify-content: space-between;
+			}
+
+			li {
+				list-style: none;
+				margin-right: 1.5rem;
+
+				&:last-child {
+					margin-right: 0;
+				}
+
+				a {
+					font-size: 1.8rem;
+					line-height: 1;
+					color: #000;
+					text-decoration: none;
+					text-transform: uppercase;
+				}
 			}
 		}
 

@@ -21,6 +21,7 @@ import { checkUserSession } from './redux/User/user.action'
 
 import './default.scss'
 import AdminLayout from './layouts/AdminLayout'
+import Search from './pages/Search'
 
 const App = (props) => {
 	const dispatch = useDispatch()
@@ -40,6 +41,14 @@ const App = (props) => {
 						<HomepagesLayout>
 							<Homepage />
 						</HomepagesLayout>
+					)}
+				/>
+				<Route
+					path='/search'
+					render={() => (
+						<MainLayout>
+							<Search />
+						</MainLayout>
 					)}
 				/>
 				<Route

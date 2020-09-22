@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { firestore } from '../../firebase/utils'
 import Modal from '../../components/Modal'
 import FormInput from '../../components/Form/FormInput'
 import FormSelect from '../../components/Form/FormSelect'
