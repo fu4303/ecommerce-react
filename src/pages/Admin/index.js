@@ -22,7 +22,7 @@ const Admin = () => {
 	const { products } = useSelector(mapState)
 	const dispatch = useDispatch()
 	const [hideModal, setHideModal] = useState(true)
-	const [productCategory, setProductCategory] = useState('men')
+	const [productCategory, setProductCategory] = useState('mens')
 	const [productName, setProductName] = useState('')
 	const [productThumbnail, setProductThumbnail] = useState('')
 	const [productPrice, setProductPrice] = useState(0)
@@ -40,7 +40,7 @@ const Admin = () => {
 
 	const resetForm = () => {
 		setHideModal(true)
-		setProductCategory('men')
+		setProductCategory('mens')
 		setProductName('')
 		setProductThumbnail('')
 		setProductPrice(0)
