@@ -88,9 +88,7 @@ const ProductResults = (props) => {
 						return null
 
 					const configProduct = {
-						productThumbnail,
-						productName,
-						productPrice,
+						...product,
 					}
 					return <Product key={pos} {...configProduct} />
 				})}

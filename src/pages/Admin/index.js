@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
+import CKEditor from 'ckeditor4-react'
 import Modal from '../../components/Modal'
 import FormInput from '../../components/Form/FormInput'
 import FormSelect from '../../components/Form/FormSelect'
@@ -27,6 +27,7 @@ const Admin = () => {
 	const [productName, setProductName] = useState('')
 	const [productThumbnail, setProductThumbnail] = useState('')
 	const [productPrice, setProductPrice] = useState(0)
+	const [productDesc, setProductDesc] = useState('')
 
 	const { data, queryDoc, isLastPage } = products
 
@@ -47,6 +48,7 @@ const Admin = () => {
 		setProductName('')
 		setProductThumbnail('')
 		setProductPrice(0)
+		setProductDesc('')
 	}
 
 	const handleSubmit = (event) => {
@@ -58,6 +60,7 @@ const Admin = () => {
 				productName,
 				productThumbnail,
 				productPrice,
+				productDesc,
 			})
 		)
 		resetForm()
@@ -127,6 +130,12 @@ const Admin = () => {
 							value={productPrice}
 							handleChange={(e) => setProductPrice(e.target.value)}
 						/>
+
+						<CKEditor
+							onChange={(evt) => setProductDesc(evt.editor.getData())}
+						/>
+
+						<br />
 
 						<Button type='submit'>Add product</Button>
 					</form>
