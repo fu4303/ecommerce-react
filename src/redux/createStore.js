@@ -1,15 +1,18 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import createSagaMiddleware from 'redux-saga'
+import { persistStore } from 'redux-persist'
 
 import logger from 'redux-logger'
-import rootReduer from './rootReduer'
+import rootReducer from './rootReducer'
 import rootSaga from './rootSaga'
 
 const sagaMiddleware = createSagaMiddleware()
 export const middlewares = [thunk, sagaMiddleware, logger]
 
-export const store = createStore(rootReduer, applyMiddleware(...middlewares))
+export const store = createStore(rootReducer, applyMiddleware(...middlewares))
 sagaMiddleware.run(rootSaga)
 
-export default store
+export const persistor = persistStore(store)
+
+export default { store, persistor }
