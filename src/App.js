@@ -23,6 +23,7 @@ import './default.scss'
 import AdminLayout from './layouts/AdminLayout'
 import Search from './pages/Search'
 import ProductDetails from './pages/ProductDetails'
+import Cart from './pages/Cart'
 
 const App = (props) => {
 	const dispatch = useDispatch()
@@ -66,6 +67,14 @@ const App = (props) => {
 					render={() => (
 						<MainLayout>
 							<ProductDetails />
+						</MainLayout>
+					)}
+				/>
+				<Route
+					path='/cart'
+					render={() => (
+						<MainLayout>
+							<Cart />
 						</MainLayout>
 					)}
 				/>
